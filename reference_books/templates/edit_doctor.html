@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Doctor{% endblock %}
+
+{% block content %}
+<h1>Edit Doctor</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ doctor.name }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="specialty" class="form-label">Specialty</label>
+        <input type="text" id="specialty" name="specialty" class="form-control" value="{{ doctor.specialty }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="department" class="form-label">Department</label>
+        <select id="department" name="department_id" class="form-select" required>
+            {% for department in departments %}
+            <option value="{{ department.id }}" {% if department.id == doctor.department.id %}selected{% endif %}>
+                {{ department.name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+{% endblock %}

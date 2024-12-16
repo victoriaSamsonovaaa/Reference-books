@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Add New Doctor{% endblock %}
+
+{% block content %}
+<h1>Add New Doctor</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="specialty" class="form-label">Specialty</label>
+        <input type="text" id="specialty" name="specialty" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="department" class="form-label">Department</label>
+        <select id="department" name="department_id" class="form-select">
+            {% for department in departments %}
+            <option value="{{ department.id }}">{{ department.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a href="{% url 'doctor_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

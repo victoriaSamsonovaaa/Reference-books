@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Patients{% endblock %}
+
+{% block content %}
+<h1>Patients</h1>
+<a href="{% url 'add_patient' %}" class="btn btn-success mb-3">Add New Patient</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <a href="?sort=name&order={% if current_sort == 'name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Name
+                    {% if current_sort == 'name' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=birth_date&order={% if current_sort == 'birth_date' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Birth Date
+                    {% if current_sort == 'birth_date' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=address&order={% if current_sort == 'address' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Address
+                    {% if current_sort == 'address' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=doctor__name&order={% if current_sort == 'doctor__name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Doctor
+                    {% if current_sort == 'doctor__name' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=department__name&order={% if current_sort == 'department__name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Department
+                    {% if current_sort == 'department__name' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.birth_date }}</td>
+            <td>{{ patient.address }}</td>
+            <td>{{ patient.doctor.name }}</td>
+            <td>{{ patient.department.name }}</td>
+            <td>
+                <a href="{% url 'patient_detail' patient.id %}" class="btn btn-sm btn-info">View</a>
+                <a href="{% url 'edit_patient' patient.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'delete_patient' patient.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Departments{% endblock %}
+
+{% block content %}
+<h1>Departments</h1>
+<a href="{% url 'add_department' %}" class="btn btn-success mb-3">Add New Department</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                <a href="?sort=name&order={% if current_sort == 'name' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Name
+                    {% if current_sort == 'name' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>
+                <a href="?sort=location&order={% if current_sort == 'location' and current_order == 'asc' %}desc{% else %}asc{% endif %}">
+                    Location
+                    {% if current_sort == 'location' %}
+                        <i class="bi {% if current_order == 'asc' %}bi-caret-up-fill{% else %}bi-caret-down-fill{% endif %}"></i>
+                    {% endif %}
+                </a>
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for department in departments %}
+        <tr>
+            <td>{{ department.name }}</td>
+            <td>{{ department.location|truncatechars:70 }}</td>
+            <td>
+                <a href="{% url 'department_detail' department.id %}" class="btn btn-sm btn-info">View</a>
+                <a href="{% url 'edit_department' department.id %}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{% url 'delete_department' department.id %}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

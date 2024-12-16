@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Doctor Details{% endblock %}
+
+{% block content %}
+<h1>Doctor Details</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ doctor.name }}</h5>
+        <p class="card-text"><strong>Specialty:</strong> {{ doctor.specialty }}</p>
+        <p class="card-text"><strong>Department:</strong> {{ doctor.department.name }}</p>
+        <a href="{% url 'edit_doctor' doctor.id %}" class="btn btn-warning">Edit</a>
+        <a href="{% url 'delete_doctor' doctor.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'doctor_list' %}" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock %}
